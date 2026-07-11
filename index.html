@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>邀請你一起用 Cursor — AI 寫程式的新方式</title>
+  <meta name="description" content="非官方邀請函：用我的推薦連結開始使用 Cursor，用 AI 一起做網站、工具、學習系統與小遊戲。" />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #f54e00;
+      --primary-active: #d04200;
+      --ink: #26251e;
+      --body: #5a5852;
+      --muted: #807d72;
+      --muted-soft: #a09c92;
+      --hairline: #e6e5e0;
+      --hairline-soft: #efeee8;
+      --hairline-strong: #cfcdc4;
+      --canvas: #f7f7f4;
+      --canvas-soft: #fafaf7;
+      --surface-card: #ffffff;
+      --surface-strong: #e6e5e0;
+      --on-primary: #ffffff;
+      --timeline-thinking: #dfa88f;
+      --timeline-grep: #9fc9a2;
+      --timeline-read: #9fbbe0;
+      --timeline-edit: #c0a8dd;
+      --timeline-done: #c08532;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 9999px;
+      --font: "Inter", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    code, .mono { font-family: var(--font-mono); }
+
+    .wrap {
+      width: min(100% - 2.5rem, var(--max));
+      margin-inline: auto;
+    }
+
+    /* ——— Nav ——— */
+    .nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--hairline);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--canvas) 92%, transparent);
+      backdrop-filter: blur(10px);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+    .brand-mark {
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 4px;
+      clip-path: polygon(12% 8%, 88% 8%, 88% 42%, 58% 42%, 58% 92%, 42% 92%, 42% 42%, 12% 42%);
+    }
+    .brand span { color: var(--primary); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-note {
+      font-size: 13px;
+      color: var(--muted);
+      display: none;
+    }
+    @media (min-width: 720px) {
+      .nav-note { display: block; }
+    }
+
+    /* ——— Buttons ——— */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      height: 40px;
+      padding: 0 18px;
+      border-radius: var(--radius-md);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover { background: var(--primary-active); }
+    .btn-download {
+      height: 44px;
+      padding: 0 20px;
+      background: var(--ink);
+      color: var(--canvas);
+    }
+    .btn-download:hover { background: #1a1914; }
+    .btn-secondary {
+      background: var(--surface-card);
+      color: var(--ink);
+      border-color: var(--hairline-strong);
+    }
+    .btn-secondary:hover { border-color: var(--ink); }
+    .btn-lg {
+      height: 48px;
+      padding: 0 24px;
+      font-size: 15px;
+    }
+
+    /* ——— Hero ——— */
+    .hero {
+      padding: clamp(3.5rem, 9vw, 5.5rem) 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20% 40% auto -10%;
+      height: 70%;
+      background:
+        radial-gradient(ellipse at 30% 40%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 60%),
+        radial-gradient(ellipse at 70% 20%, color-mix(in srgb, var(--timeline-read) 18%, transparent), transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero .wrap { position: relative; z-index: 1; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-strong);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.88px;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .hero h1 {
+      margin: 0 0 1.1rem;
+      max-width: 14ch;
+      font-size: clamp(2.35rem, 7vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+    .hero-lead {
+      margin: 0 0 1.75rem;
+      max-width: 36rem;
+      color: var(--body);
+      font-size: clamp(1rem, 2.2vw, 1.125rem);
+      line-height: 1.6;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .hero-meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .hero-meta a {
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+
+    /* ——— IDE mockup ——— */
+    .ide {
+      margin-top: 3.5rem;
+      background: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+    @keyframes rise {
+      to { opacity: 1; transform: none; }
+    }
+    .ide-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--canvas-soft);
+    }
+    .ide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--hairline-strong);
+    }
+    .ide-dot:nth-child(1) { background: #e2a39a; }
+    .ide-dot:nth-child(2) { background: #d6c48a; }
+    .ide-dot:nth-child(3) { background: #9fc9a2; }
+    .ide-title {
+      margin-left: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .ide-body {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) {
+      .ide-body { grid-template-columns: 1.15fr 0.85fr; }
+    }
+    .ide-pane {
+      padding: 18px 20px;
+      min-height: 220px;
+      background: var(--canvas-soft);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--body);
+    }
+    .ide-pane + .ide-pane {
+      border-top: 1px solid var(--hairline);
+    }
+    @media (min-width: 860px) {
+      .ide-pane + .ide-pane {
+        border-top: none;
+        border-left: 1px solid var(--hairline);
+      }
+    }
+    .code-line { white-space: pre-wrap; }
+    .c-kw { color: #8a5a3a; }
+    .c-fn { color: #3d6f8c; }
+    .c-str { color: #1f8a65; }
+    .c-cm { color: var(--muted-soft); }
+    .c-var { color: var(--ink); }
+
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.88px;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0;
+      animation: pill-in 0.45s ease forwards;
+    }
+    .pill:nth-child(1) { animation-delay: 0.5s; background: var(--timeline-thinking); }
+    .pill:nth-child(2) { animation-delay: 0.7s; background: var(--timeline-read); }
+    .pill:nth-child(3) { animation-delay: 0.9s; background: var(--timeline-grep); }
+    .pill:nth-child(4) { animation-delay: 1.1s; background: var(--timeline-edit); }
+    .pill:nth-child(5) { animation-delay: 1.3s; background: var(--timeline-done); color: var(--on-primary); }
+    @keyframes pill-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
+    .agent-msg {
+      margin: 0;
+      color: var(--ink);
+    }
+    .agent-msg + .agent-msg { margin-top: 0.75rem; }
+
+    /* ——— Sections ——— */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--hairline);
+    }
+    .section-label {
+      margin: 0 0 0.85rem;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.88px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .section-title {
+      margin: 0 0 0.85rem;
+      max-width: 18ch;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .section-lead {
+      margin: 0 0 2.5rem;
+      max-width: 40rem;
+      color: var(--body);
+    }
+
+    /* ——— Capabilities ——— */
+    .cap-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) {
+      .cap-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 980px) {
+      .cap-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .cap {
+      background: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color 0.2s ease;
+    }
+    .cap:hover { border-color: var(--hairline-strong); }
+    .cap-tag {
+      display: inline-block;
+      margin-bottom: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .cap h3 {
+      margin: 0 0 0.5rem;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .cap p {
+      margin: 0;
+      color: var(--body);
+      font-size: 14px;
+    }
+
+    /* ——— How ——— */
+    .steps {
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface-card);
+    }
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      padding: 1.35rem 1.5rem;
+      align-items: start;
+    }
+    .step + .step { border-top: 1px solid var(--hairline); }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--primary);
+      padding-top: 0.15rem;
+    }
+    .step h3 {
+      margin: 0 0 0.35rem;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .step p {
+      margin: 0;
+      color: var(--body);
+      font-size: 14px;
+    }
+    .step code {
+      font-size: 12px;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+
+    /* ——— Quote ——— */
+    .quote-band {
+      background: var(--ink);
+      color: var(--canvas);
+      border-top: none;
+      padding: 72px 0;
+    }
+    .quote-band .section-label { color: var(--muted-soft); }
+    .quote {
+      margin: 0;
+      max-width: 28ch;
+      font-size: clamp(1.6rem, 4vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .quote-meta {
+      margin-top: 1.5rem;
+      color: var(--muted-soft);
+      font-size: 14px;
+    }
+
+    /* ——— CTA ——— */
+    .cta-band {
+      text-align: center;
+      padding: 96px 0;
+    }
+    .cta-band .section-title {
+      max-width: none;
+      margin-inline: auto;
+      margin-bottom: 1rem;
+    }
+    .cta-band .section-lead {
+      margin-inline: auto;
+      margin-bottom: 1.75rem;
+    }
+    .link-box {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding: 10px 12px 10px 16px;
+      background: var(--surface-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      max-width: 100%;
+    }
+    .link-box code {
+      font-size: 12px;
+      color: var(--body);
+      word-break: break-all;
+      text-align: left;
+    }
+    .copy-btn {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--hairline-strong);
+      border-radius: 6px;
+      background: var(--canvas);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { border-color: var(--ink); }
+
+    /* ——— Footer ——— */
+    footer {
+      border-top: 1px solid var(--hairline);
+      padding: 48px 0 64px;
+      color: var(--body);
+      font-size: 14px;
+    }
+    footer p { margin: 0 0 0.5rem; max-width: 42rem; }
+    footer a { color: var(--ink); text-underline-offset: 3px; }
+    .disclaimer {
+      margin-top: 1.25rem;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:min(100% - 2.5rem, var(--max));">
+      <a class="brand" href="#top" aria-label="回到頂部">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Cursor</span>&nbsp;邀請函
+      </a>
+      <div class="nav-actions">
+        <span class="nav-note">非官方推薦頁</span>
+        <a class="btn btn-primary" href="https://cursor.com/referral?code=PB2SJ4MP1VPU" target="_blank" rel="noopener noreferrer">用推薦連結開始</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="wrap">
+        <div class="badge"><span class="badge-dot" aria-hidden="true"></span>Unofficial invite</div>
+        <h1>一句話交給 <em>Cursor</em>，想法今晚就能上線</h1>
+        <p class="hero-lead">
+          這是一封非官方邀請函。如果你也想用 AI 寫網站、做工具、學英文、剪影片轉逐字稿——
+          歡迎透過我的推薦連結註冊 Cursor，用同一套編輯器把靈感落地。
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-download btn-lg" href="https://cursor.com/referral?code=PB2SJ4MP1VPU" target="_blank" rel="noopener noreferrer">
+            透過推薦連結開始
+          </a>
+          <a class="btn btn-secondary btn-lg" href="#works">看看我用 Cursor 做了什麼</a>
+        </div>
+        <p class="hero-meta">
+          推薦碼 <code class="mono">PB2SJ4MP1VPU</code> ·
+          <a href="https://cursor.com/referral?code=PB2SJ4MP1VPU" target="_blank" rel="noopener noreferrer">cursor.com/referral</a>
+        </p>
+
+        <div class="ide" aria-label="Cursor Agent 示意">
+          <div class="ide-chrome">
+            <span class="ide-dot"></span>
+            <span class="ide-dot"></span>
+            <span class="ide-dot"></span>
+            <span class="ide-title">agent · building with Cursor</span>
+          </div>
+          <div class="ide-body">
+            <div class="ide-pane" aria-hidden="true">
+              <div class="code-line"><span class="c-cm">// 用自然語言描述，Agent 幫你改程式</span></div>
+              <div class="code-line"><span class="c-kw">export function</span> <span class="c-fn">compressImage</span>(<span class="c-var">file</span>) {</div>
+              <div class="code-line">  <span class="c-kw">const</span> canvas = document.<span class="c-fn">createElement</span>(<span class="c-str">'canvas'</span>);</div>
+              <div class="code-line">  <span class="c-cm">// …品質、尺寸、下載一次搞定</span></div>
+              <div class="code-line">  <span class="c-kw">return</span> canvas.<span class="c-fn">toBlob</span>(…);</div>
+              <div class="code-line">}</div>
+            </div>
+            <div class="ide-pane">
+              <div class="timeline" aria-label="Agent 執行階段">
+                <span class="pill">Thinking</span>
+                <span class="pill">Reading</span>
+                <span class="pill">Grepping</span>
+                <span class="pill">Editing</span>
+                <span class="pill">Done</span>
+              </div>
+              <p class="agent-msg">先讀你現有的專案結構，再依需求改畫面與邏輯。</p>
+              <p class="agent-msg">從圖片壓縮站、即時看板到貪食蛇——同一套工作流就能做完。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="works">
+      <div class="wrap">
+        <p class="section-label">What I’ve built</p>
+        <h2 class="section-title">Cursor 能幫你做成這些事</h2>
+        <p class="section-lead">
+          以下都是我實際在 Cursor 裡做完的成品：網站、工具、學習系統、小遊戲，
+          甚至管理與簡報相關的內容。重點不是「會不會寫 code」，而是「想不想把它做出來」。
+        </p>
+
+        <div class="cap-grid">
+          <article class="cap">
+            <span class="cap-tag">01 · web</span>
+            <h3>即時看板系統</h3>
+            <p>把即時資料做成可讀的看板介面——查詢、狀態、更新節奏一次到位。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">02 · utility</span>
+            <h3>圖片壓縮網站</h3>
+            <p>上傳、壓縮、下載：用瀏覽器就能完成的小工具，適合日常與內容產出。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">03 · utility</span>
+            <h3>文件轉換網站</h3>
+            <p>把常見文件格式轉換流程產品化，少開一堆桌面軟體也能搞定。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">04 · media</span>
+            <h3>影片 → 音檔 → 逐字稿</h3>
+            <p>影音內容轉文字的工作流：適合會議、課程、訪談與內容二次創作。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">05 · learning</span>
+            <h3>專業英文學習網</h3>
+            <p>把學習路徑做成網站：練習、複習與內容結構都能用 AI 一起規劃與實作。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">06 · game</span>
+            <h3>小遊戲：貪食蛇</h3>
+            <p>從規則、畫面到操作手感——用 Cursor 當搭檔，週末也能做出可玩的小遊戲。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">07 · business</span>
+            <h3>管理能力分析 / 課程規劃</h3>
+            <p>管理條件盤點、能力分析與課程規劃：把抽象主題做成可互動的資訊產品。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">08 · presentation</span>
+            <h3>簡報風格與「如何做好簡報」</h3>
+            <p>不只寫稿：連簡報架構、風格系統與說故事節奏，都能在編輯器裡一起打磨。</p>
+          </article>
+          <article class="cap">
+            <span class="cap-tag">09 · strategy</span>
+            <h3>交易策略與更多網頁開發</h3>
+            <p>從策略原型到一般網頁專案——Cursor 適合當你每天打開的「會寫 code 的同事」。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <p class="section-label">How to join</p>
+        <h2 class="section-title">怎麼用我的推薦連結</h2>
+        <p class="section-lead">三步就好。註冊後下載 Cursor，直接把想法丟給 Agent。</p>
+
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div>
+              <h3>打開推薦連結</h3>
+              <p>點上方橘色按鈕，或前往 <code>cursor.com/referral?code=PB2SJ4MP1VPU</code></p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div>
+              <h3>完成註冊並安裝</h3>
+              <p>依官網指示註冊帳號，下載對應系統的 Cursor（Windows / macOS / Linux）。</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div>
+              <h3>用一句話開始第一個專案</h3>
+              <p>例如：「幫我做一個圖片壓縮網站」或「做一個交易策略」——Agent 會讀檔、搜尋、修改，再跟你一起迭代。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-band">
+      <div class="wrap">
+        <p class="section-label">Why Cursor</p>
+        <p class="quote">不是問 AI 一段程式碼，而是讓 AI 待在你的專案裡一起改。</p>
+        <p class="quote-meta">讀檔 · 搜尋 · 編輯 · 跑指令 —— 同一條時間軸上完成。</p>
+      </div>
+    </section>
+
+    <section class="cta-band" id="invite">
+      <div class="wrap">
+        <p class="section-label">Your invite</p>
+        <h2 class="section-title">準備好了就從這裡開始</h2>
+        <p class="section-lead">用推薦連結註冊，我們用同一套工具把下一個想法做出來。</p>
+        <a class="btn btn-primary btn-lg" href="https://cursor.com/referral?code=PB2SJ4MP1VPU" target="_blank" rel="noopener noreferrer">
+          使用推薦連結註冊 Cursor
+        </a>
+        <div class="link-box">
+          <code id="referral-url">https://cursor.com/referral?code=PB2SJ4MP1VPU</code>
+          <button type="button" class="copy-btn" id="copy-btn" aria-label="複製推薦連結">複製連結</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>本頁為個人非官方邀請函，與 Cursor / Anysphere 無隸屬關係。</p>
+      <p>
+        正式產品與條款請以
+        <a href="https://cursor.com" target="_blank" rel="noopener noreferrer">cursor.com</a>
+        為準。推薦連結：
+        <a href="https://cursor.com/referral?code=PB2SJ4MP1VPU" target="_blank" rel="noopener noreferrer">PB2SJ4MP1VPU</a>
+      </p>
+      <p class="disclaimer">視覺風格參考 Cursor 公開行銷設計語言，僅供邀請與說明用途。</p>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * 複製推薦連結到剪貼簿，並短暫回饋按鈕文案。
+     * @returns {Promise<void>}
+     */
+    async function copyReferralLink() {
+      const url = document.getElementById("referral-url")?.textContent?.trim() || "";
+      const btn = document.getElementById("copy-btn");
+      if (!url || !btn) return;
+
+      try {
+        await navigator.clipboard.writeText(url);
+        const prev = btn.textContent;
+        btn.textContent = "已複製";
+        setTimeout(() => {
+          btn.textContent = prev;
+        }, 1600);
+      } catch {
+        btn.textContent = "請手動複製";
+      }
+    }
+
+    document.getElementById("copy-btn")?.addEventListener("click", copyReferralLink);
+  </script>
+</body>
+</html>
